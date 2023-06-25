@@ -1,13 +1,12 @@
-"use client";
-
-import styles from "@/app/contact/contact.module.css";
-import { Mulish } from "next/font/google";
 import { useState } from "react";
-const mulish = Mulish({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-});
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+} from "@chakra-ui/react";
 
 const ContactForm = () => {
   const [user, setUser] = useState({
@@ -57,89 +56,71 @@ const ContactForm = () => {
   };
 
   return (
-    <form className={styles.contact_form} onSubmit={handleSubmit}>
-      <div className={styles.input_field}>
-        <label htmlFor="username" className={styles.label}>
-          Enter your name
-          <input
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Enter your name"
-            className={mulish.className}
-            value={user.username}
-            onChange={handleChange}
-            required
-          />
-        </label>
-      </div>
+    <Box as="form" onSubmit={handleSubmit}>
+      <FormControl id="username" mb={4} isRequired>
+        <FormLabel>Enter your name</FormLabel>
+        <Input
+          type="text"
+          name="username"
+          placeholder="Enter your name"
+          value={user.username}
+          onChange={handleChange}
+        />
+      </FormControl>
 
-      <div className={styles.input_field}>
-        <label htmlFor="email" className={styles.label}>
-          Email
-          <input
-            type="text"
-            name="email"
-            id="email"
-            placeholder="Enter your email"
-            className={mulish.className}
-            value={user.email}
-            onChange={handleChange}
-            required
-            autoComplete="off"
-          />
-        </label>
-      </div>
+      <FormControl id="email" mb={4} isRequired>
+        <FormLabel>Email</FormLabel>
+        <Input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          value={user.email}
+          onChange={handleChange}
+          autoComplete="off"
+        />
+      </FormControl>
 
-      <div className={styles.input_field}>
-        <label htmlFor="phone" className={styles.label}>
-          Phone Number
-          <input
-            type="number"
-            name="phone"
-            id="phone"
-            placeholder="Enter your phone"
-            className={mulish.className}
-            value={user.phone}
-            onChange={handleChange}
-            required
-            autoComplete="off"
-          />
-        </label>
-      </div>
+      <FormControl id="phone" mb={4} isRequired>
+        <FormLabel>Phone Number</FormLabel>
+        <Input
+          type="tel"
+          name="phone"
+          placeholder="Enter your phone"
+          value={user.phone}
+          onChange={handleChange}
+          autoComplete="off"
+        />
+      </FormControl>
 
-      <div className={styles.input_field}>
-        <label htmlFor="message" className={styles.label}>
-          Message
-          <textarea
-            name="message"
-            id="message"
-            rows={5}
-            placeholder="Enter your Message"
-            className={mulish.className}
-            value={user.message}
-            onChange={handleChange}
-            required
-            autoComplete="off"
-          />
-        </label>
-      </div>
+      <FormControl id="message" mb={4} isRequired>
+        <FormLabel>Message</FormLabel>
+        <Textarea
+          name="message"
+          rows={5}
+          placeholder="Enter your Message"
+          value={user.message}
+          onChange={handleChange}
+          autoComplete="off"
+        />
+      </FormControl>
 
-      <div>
+      <Box>
         {status === "success" && (
-          <p className={styles.success_msg}>Thank you for your message!</p>
+          <Box color="green.500" mb={2}>
+            Thank you for your message!
+          </Box>
         )}
         {status === "error" && (
-          <p className={styles.error_msg}>
+          <Box color="red.500" mb={2}>
             There was an error submitting your message. Please try again.
-          </p>
+          </Box>
         )}
 
-        <button type="submit" className={mulish.className}>
+        <Button type="submit" colorScheme="blue">
           Send Message
-        </button>
-      </div>
-    </form>
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
